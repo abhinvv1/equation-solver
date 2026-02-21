@@ -1,10 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import Tree from "react-d3-tree";
 import "./App.css";
 
 const renderCustomNodeElement = ({ nodeDatum }) => (
   <g>
-    {/* Node Background Box */}
     <rect
       width="60"
       height="40"
@@ -14,9 +13,7 @@ const renderCustomNodeElement = ({ nodeDatum }) => (
       fill="#ffffff"
       stroke="#3b82f6"
       strokeWidth="2"
-      className="node-rect"
     />
-    {/* Node Text */}
     <text
       fill="#1e293b"
       strokeWidth="1"
@@ -36,6 +33,8 @@ function App() {
   const [error, setError] = useState("");
   const [astData, setAstData] = useState(null);
   const [solverModule, setSolverModule] = useState(null);
+  const treeContainerRef = useRef(null);
+  const [translate, setTranslate] = useState({ x: 0, y: 80 });
 
   useEffect(() => {
     const loadWasm = async () => {
@@ -47,6 +46,14 @@ function App() {
     loadWasm();
   }, []);
 
+  // Update center when tree data changes
+  useEffect(() => {
+    if (treeContainerRef.current) {
+      const dimensions = treeContainerRef.current.getBoundingClientRect();
+      setTranslate({ x: dimensions.width / 2, y: 80 });
+    }
+  }, [astData]);
+
   const handleSolve = () => {
     if (!solverModule) return;
     setError("");
@@ -56,8 +63,8 @@ function App() {
 
     if (data.error) {
       setError(data.error);
-      setAstData(null);
-      setResult("");
+      setAstData(null); // Clear the old tree!
+      setResult(""); // Clear the old answer!
     } else {
       setResult(data.result);
       setAstData(data.ast);
@@ -78,7 +85,7 @@ function App() {
           onChange={(e) => setEquation(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && handleSolve()}
           className="styled-input"
-          placeholder="Enter a linear equation..."
+          placeholder="Enter an equation..."
         />
         <button onClick={handleSolve} className="styled-button">
           Solve
@@ -94,14 +101,13 @@ function App() {
         )}
       </div>
 
-      {astData && (
-        <div className="tree-card">
-          <Tree 
-            data={astData} 
-            orientation="vertical" 
+      {astData && !error && (
+        <div className="tree-card" ref={treeContainerRef}>
+          <Tree
+            data={astData}
+            orientation="vertical"
             pathFunc="step"
-            // Dynamically center based on window width, and push down 80px to prevent clipping
-            translate={{ x: window.innerWidth / 2.5, y: 80 }} 
+            translate={translate}
             renderCustomNodeElement={renderCustomNodeElement}
             separation={{ siblings: 1.5, nonSiblings: 2 }}
             zoomable={true}
