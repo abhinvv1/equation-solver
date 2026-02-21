@@ -1,20 +1,25 @@
 /* Reset and Global */
 * {
   box-sizing: border-box;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Inter', system-ui, sans-serif;
 }
 
 body {
   margin: 0;
-  background: linear-gradient(135deg, #f0f4f8 0%, #d9e2ec 100%);
-  color: #102a43;
+  background: #f4f7f9; /* Solid, clean, professional gray */
+  color: #0f172a;
   min-height: 100vh;
 }
 
+#root {
+  width: 100%;
+}
+
 .app-container {
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 60px 20px;
+  width: 90%;
+  max-width: 1400px; /* Massive width for desktop monitors */
+  margin: 0 auto;    /* Perfectly centers the container */
+  padding: 40px 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -27,110 +32,113 @@ body {
 }
 
 .header h1 {
-  font-size: 2.75rem;
-  font-weight: 700;
-  color: #102a43;
-  margin: 0 0 10px 0;
+  font-size: 3rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0 0 8px 0;
   letter-spacing: -1px;
 }
 
 .header p {
-  color: #627d98;
-  font-size: 1.1rem;
+  color: #64748b;
+  font-size: 1.2rem;
   margin: 0;
+  font-weight: 500;
 }
 
 /* Input Card */
 .input-card {
   background: #ffffff;
-  padding: 20px;
-  border-radius: 16px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+  padding: 15px;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   display: flex;
-  gap: 15px;
+  gap: 12px;
   width: 100%;
-  max-width: 600px;
+  max-width: 800px;
   margin-bottom: 30px;
 }
 
 .styled-input {
   flex: 1;
-  padding: 15px 20px;
-  font-size: 1.1rem;
-  border: 1px solid #d9e2ec;
-  border-radius: 10px;
+  padding: 16px 24px;
+  font-size: 1.2rem;
+  background: #f8fafc;
+  color: #0f172a;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
   outline: none;
   transition: all 0.2s ease;
-  font-family: monospace;
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
 }
 
 .styled-input:focus {
   border-color: #3b82f6;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+  background: #ffffff;
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
 }
 
 .styled-button {
-  background: #3b82f6;
+  background: #2563eb;
   color: white;
   border: none;
-  padding: 0 30px;
+  padding: 0 40px;
   font-size: 1.1rem;
   font-weight: 600;
-  border-radius: 10px;
+  border-radius: 8px;
   cursor: pointer;
-  transition: background 0.2s ease, transform 0.1s ease;
+  transition: background 0.2s ease;
 }
 
 .styled-button:hover {
-  background: #2563eb;
-}
-
-.styled-button:active {
-  transform: scale(0.98);
+  background: #1d4ed8;
 }
 
 /* Result Area */
 .result-area {
   margin-bottom: 30px;
   text-align: center;
+  min-height: 40px; /* Prevents layout jumping */
 }
 
 .result-text {
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: #102a43;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #0f172a;
 }
 
 .result-value {
-  color: #10b981; /* Success green */
-  font-family: monospace;
+  color: #059669; /* Sharp success green */
+  font-family: 'SFMono-Regular', Consolas, monospace;
   background: #d1fae5;
-  padding: 4px 12px;
+  padding: 6px 16px;
   border-radius: 8px;
-  margin-left: 10px;
+  margin-left: 12px;
 }
 
 .error-text {
-  color: #ef4444;
+  color: #b91c1c;
   background: #fee2e2;
-  padding: 10px 20px;
+  padding: 12px 24px;
   border-radius: 8px;
-  font-weight: 500;
+  font-weight: 600;
+  font-size: 1.1rem;
 }
 
-/* Tree Card */
+/* Tree Card - Made massive for widescreen */
 .tree-card {
   background: #ffffff;
   width: 100%;
-  height: 500px;
+  height: 65vh; /* Takes up 65% of your viewport height */
+  min-height: 600px;
   border-radius: 16px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e2e8f0;
   overflow: hidden;
-  border: 1px solid #e4e7eb;
 }
 
-/* Customize the D3 Tree paths */
+/* Customizing the lines connecting the nodes */
 .rd3t-link {
-  stroke: #cbd5e1 !important;
-  stroke-width: 3px !important;
+  stroke: #94a3b8 !important;
+  stroke-width: 2.5px !important;
 }

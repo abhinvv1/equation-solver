@@ -96,11 +96,12 @@ function App() {
 
       {astData && (
         <div className="tree-card">
-          <Tree
-            data={astData}
-            orientation="vertical"
+          <Tree 
+            data={astData} 
+            orientation="vertical" 
             pathFunc="step"
-            translate={{ x: 480, y: 50 }}
+            // Dynamically center based on window width, and push down 80px to prevent clipping
+            translate={{ x: window.innerWidth / 2.5, y: 80 }} 
             renderCustomNodeElement={renderCustomNodeElement}
             separation={{ siblings: 1.5, nonSiblings: 2 }}
             zoomable={true}
